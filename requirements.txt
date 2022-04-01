@@ -8,6 +8,7 @@ greenlet==1.1.2
 itsdangerous==2.1.2
 Jinja2==3.0.3
 MarkupSafe==2.1.1
+psycopg2==2.9.3
 SQLAlchemy==1.4.34
 Werkzeug==2.1.1
 WTForms==3.0.1

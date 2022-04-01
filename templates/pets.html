@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row mb-3">
+  <div class="col-12">
+    <h2 class="">Pets</h2>
+  </div>
+</div>
+<div class="row">
+  {% for pet in pets%}
+  <div class="col-4">
+    <img src="{{ pet.photo_url }}" alt="Adopt this pet!" class="img-fluid">
+    <span class="text-success lead">{{ pet.name }}</span>
+    <span class="lead">is
+      {% if pet.available -%} available! {%- else -%} not availible! {%- endif %}
+    </span>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock%}
