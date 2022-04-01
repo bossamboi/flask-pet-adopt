@@ -7,10 +7,12 @@
     <h2 class="">Pets</h2>
   </div>
 </div>
-<div class="row">
+<div class="row mb-4">
   {% for pet in pets%}
   <div class="col-4">
-    <img src="{{ pet.photo_url }}" alt="Adopt this pet!" class="img-fluid">
+    <a href="/{{ pet.id }}"><img src="{{ pet.photo_url }}"
+                                alt="Adopt this pet!"
+                                class="img-fluid"></a>
     <span class="text-success lead">{{ pet.name }}</span>
     <span class="lead">is
       {% if pet.available -%} available! {%- else -%} not availible! {%- endif %}

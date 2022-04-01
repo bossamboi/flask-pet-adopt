@@ -27,21 +27,21 @@ toolbar = DebugToolbarExtension(app)
 
 @app.get("/")
 def show_pets():
-    """List pets with name, photo, and avalibility"""
+    """List pets with name, photo, and avalibility."""
 
     pets = Pet.query.all()
 
     return render_template("pets.html", pets=pets)
+
 
 @app.route("/add", methods=["GET", "POST"])
 def handle_pet_form():
     """Show pet addition form and handle new pet submission"""
 
     form = AddPetForm()
-    # form = AddPetForm(obj=pet)
 
     if form.validate_on_submit():
-        # process form and redirect somewhere
+
         name = form.name.data
         species = form.species.data
         photo_url = form.photo_url.data
@@ -59,6 +59,15 @@ def handle_pet_form():
         return render_template("add_pet_form.html", form=form)
 
 
+@app.get("/<int:pet_id>")
+def display_pet_details(pet_id):
+    """Display pet details."""
+
+    pet = Pet.query.get(pet_id)
+
+    return render_template("pet_detail_page.html", pet=pet)
+
+
 
 @app.route("/<int:pet_id>/edit", methods=["GET", "POST"])
 def handle_pet_edit_form(pet_id):
@@ -68,7 +77,6 @@ def handle_pet_edit_form(pet_id):
     form = EditPetForm(obj=pet)
 
     if form.validate_on_submit():
-        # process form and redirect somewhere
 
         photo_url = form.photo_url.data
         notes = form.notes.data

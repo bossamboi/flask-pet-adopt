@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <h2>{{ pet.name }}</h2>
+</div>
+<div class="row mb-3">
+  <div class="col-6">
+    <img class="img-fluid" src="{{ pet.photo_url }}" alt="Picture of {{ pet.name }}">
+  </div>
+  <div class="col-6">
+    <h4 class="mb-5">Meet {{ pet.name }}! {{ pet.name }} is a {{ pet.age }} {{ pet.species }}.</h4>
+    <h6>Details about {{ pet.name }}</h6>
+    <p>{{ pet.notes }}</p>
+  </div>
+</div>
+<div>
+  <a class="btn btn-outline-info" href="/">Home</a>
+  <a class="btn btn-success" href="/{{ pet.id }}/edit">Edit Pet</a>
+</div>
+
+{% endblock %}
