@@ -5,3 +5,4 @@ __pycache__/
 __pycache__
 venv
 >>>>>>> 25166f7f083bb908c0de35fbe37a19e15d51d2f3
+.env

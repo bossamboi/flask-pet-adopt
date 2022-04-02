@@ -1,4 +1,6 @@
 """Flask app for adopt app."""
+import os
+import requests
 
 from flask import Flask, render_template, redirect, flash
 
@@ -14,6 +16,9 @@ app.config['SECRET_KEY'] = "secret"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///adopt"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+API_KEY = os.environ["API_KEY"]
+API_SECRET = os.environ["API_SECRET"]
+
 connect_db(app)
 db.create_all()
 
@@ -28,6 +33,8 @@ toolbar = DebugToolbarExtension(app)
 @app.get("/")
 def show_pets():
     """List pets with name, photo, and avalibility."""
+
+    pet_list = get_pets()
 
     pets = Pet.query.all()
 
@@ -49,10 +56,11 @@ def handle_pet_form():
         notes = form.notes.data
 
         pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes)
+
         db.session.add(pet)
         db.session.commit()
 
-        flash(f"{name} added!")
+        flash(f"{pet.name} added!")
         return redirect("/")
 
     else:
@@ -94,3 +102,22 @@ def handle_pet_edit_form(pet_id):
 
     else:
         return render_template("edit_pet_form.html", form=form, pet=pet)
+
+
+
+def get_pets():
+    """Get pets from petfinder API"""
+
+    token = get_pet_token()
+
+
+def get_pet_token():
+    """Get petfinder token"""
+
+    response = requests.get(f"https://api.petfinder.com/v2/oauth2/token?\
+        grant_type=client_credentials&client_id={API_KEY}&client_secret={API_SECRET}")
+    breakpoint()
+
+    token = response["access_token"]
+
+    return token
